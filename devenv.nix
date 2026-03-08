@@ -2,6 +2,13 @@
 
 let
   treefmtBin = lib.getExe config.treefmt.config.build.wrapper;
+  mdformatPackage = pkgs.mdformat.withPlugins (
+    ps: with ps; [
+      mdformat-gfm
+      mdformat-frontmatter
+      mdformat-footnote
+    ]
+  );
   treefmtPreCommit = pkgs.writeShellApplication {
     name = "treefmt-pre-commit";
     runtimeInputs = [ pkgs.git ];
@@ -21,7 +28,11 @@ in
 {
   treefmt = {
     enable = lib.mkDefault true;
-    config.programs.mdformat.enable = lib.mkDefault true;
+    config.settings.formatter.mdformat = {
+      command = lib.getExe mdformatPackage;
+      options = [ "--number" ];
+      includes = [ "*.md" ];
+    };
   };
 
   git-hooks = lib.mkIf config.treefmt.enable {
