@@ -1,9 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  docsAgentsText = if builtins.pathExists ./AGENTS.md
-    then builtins.readFile ./AGENTS.md
-    else "";
   treefmtBin = lib.getExe config.treefmt.config.build.wrapper;
 in
 {
@@ -29,19 +26,16 @@ in
   ];
 
   scripts = {
-    fmt.exec = treefmtBin;
-    fmt-check.exec = "${treefmtBin} --fail-on-change";
-    spellcheck.exec = "typos";
-    spellcheck-fix.exec = "typos -w";
-    ci.exec = ''
+    fmt.exec = lib.mkDefault treefmtBin;
+    fmt-check.exec = lib.mkDefault "${treefmtBin} --fail-on-change";
+    spellcheck.exec = lib.mkDefault "typos";
+    spellcheck-fix.exec = lib.mkDefault "typos -w";
+    ci.exec = lib.mkDefault ''
       set -euo pipefail
       fmt-check
       spellcheck
     '';
   };
-
-  materializer.ownFragments.env-docs = [ docsAgentsText ];
-  materializer.mergedFragments = lib.mkAfter [ docsAgentsText ];
 
   enterTest = ''
     set -euo pipefail

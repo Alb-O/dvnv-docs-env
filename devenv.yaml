@@ -11,12 +11,12 @@ inputs:
     inputs:
       nixpkgs:
         follows: nixpkgs
-  materializer:
-    url: git+https://github.com/Alb-O/materializer.git?ref=main
-    flake: false
   committer:
-    url: git+https://github.com/Alb-O/committer.git?ref=main
+    url: github:Alb-O/committer
+    flake: false
+  env-local-overrides:
+    url: github:Alb-O/env-local-overrides
     flake: false
 imports:
-  - materializer
   - committer
+  - env-local-overrides
