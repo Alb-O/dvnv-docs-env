@@ -1,0 +1,22 @@
+inputs:
+  nixpkgs:
+    url: github:cachix/devenv-nixpkgs/rolling
+  treefmt-nix:
+    url: github:numtide/treefmt-nix
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+  git-hooks:
+    url: github:cachix/git-hooks.nix
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+  materializer:
+    url: git+https://github.com/Alb-O/materializer.git?ref=main
+    flake: false
+  committer:
+    url: git+https://github.com/Alb-O/committer.git?ref=main
+    flake: false
+imports:
+  - materializer
+  - committer
