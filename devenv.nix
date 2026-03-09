@@ -9,21 +9,6 @@ let
       mdformat-footnote
     ]
   );
-  treefmtPreCommit = pkgs.writeShellApplication {
-    name = "treefmt-pre-commit";
-    runtimeInputs = [ pkgs.git ];
-    text = ''
-      set -euo pipefail
-
-      if (($# == 0)); then
-        exit 0
-      fi
-
-      # Stage formatter edits so the current commit can succeed in one pass.
-      ${treefmtBin} --no-cache "$@"
-      git add -- "$@"
-    '';
-  };
 in
 {
   treefmt = {
@@ -37,16 +22,7 @@ in
 
   git-hooks = lib.mkIf config.treefmt.enable {
     hooks = {
-      treefmt = {
-        enable = lib.mkDefault true;
-        entry = lib.getExe treefmtPreCommit;
-        packageOverrides.treefmt = config.treefmt.config.build.wrapper;
-        settings = {
-          # We apply and stage fixes in-hook instead of failing on first change.
-          fail-on-change = false;
-          formatters = builtins.attrValues config.treefmt.config.build.programs;
-        };
-      };
+      treefmt.enable = lib.mkDefault true;
       typos.enable = lib.mkDefault true;
     };
   };
