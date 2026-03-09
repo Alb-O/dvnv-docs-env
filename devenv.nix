@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   treefmtBin = lib.getExe config.treefmt.config.build.wrapper;
@@ -13,6 +18,7 @@ in
 {
   treefmt = {
     enable = lib.mkDefault true;
+    config.programs.nixfmt.enable = lib.mkDefault true;
     config.settings.formatter.mdformat = {
       command = lib.getExe mdformatPackage;
       options = [ "--number" ];
