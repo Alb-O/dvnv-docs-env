@@ -60,6 +60,7 @@ in
       treefmt = {
         enable = lib.mkDefault true;
         config.programs.nixfmt.enable = lib.mkDefault true;
+        config.programs.yamlfmt.enable = lib.mkDefault true;
         config.settings.formatter.mdformat = {
           command = lib.getExe mdformatPackage;
           options = [ "--number" ];

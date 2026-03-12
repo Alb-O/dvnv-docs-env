@@ -4,7 +4,7 @@ Reusable documentation environment for polyrepo setups using `devenv` v2.
 
 ## Includes
 
-- Treefmt: enabled with `mdformat`
+- Treefmt: enabled with `mdformat`, `nixfmt`, and `yamlfmt`
 - Git hooks: pre-commit `treefmt` and `typos` hooks enabled
 - Scripts: `fmt`, `fmt-check`, `spellcheck`, `spellcheck-fix`, `ci`
 - Merged typos config via `outputs.typos_config`
@@ -24,7 +24,7 @@ imports:
 ## Consumer treefmt overrides
 
 Consumers can extend the shared docs formatting by adding extra programs under `treefmt.config`.
-This composes with `poly-docs-env` defaults (for example, `mdformat` stays enabled):
+This composes with `poly-docs-env` defaults (for example, `mdformat`, `nixfmt`, and `yamlfmt` stay enabled):
 
 ```nix
 {
