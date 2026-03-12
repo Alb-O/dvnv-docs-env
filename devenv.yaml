@@ -11,12 +11,8 @@ inputs:
     inputs:
       nixpkgs:
         follows: nixpkgs
-  agent-scripts:
-    url: github:Alb-O/agent-scripts
-    flake: false
   dvnv-local-inputs:
     url: github:Alb-O/dvnv-local-inputs
     flake: false
 imports:
-  - agent-scripts
   - dvnv-local-inputs
