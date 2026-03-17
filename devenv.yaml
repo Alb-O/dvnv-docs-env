@@ -11,8 +11,8 @@ inputs:
     inputs:
       nixpkgs:
         follows: nixpkgs
-  poly-local-inputs:
-    url: github:Alb-O/poly-local-inputs
+  poly-bootstrap:
+    url: github:Alb-O/poly-bootstrap
     flake: false
 imports:
-  - poly-local-inputs
+  - poly-bootstrap

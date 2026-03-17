@@ -8,7 +8,7 @@ Reusable documentation environment for polyrepo setups using `devenv` v2.
 - Git hooks: pre-commit `treefmt` and `typos` hooks enabled
 - Scripts: `fmt`, `fmt-check`, `spellcheck`, `spellcheck-fix`, `ci`
 - Merged typos config via `outputs.typos_config`
-- Generates `devenv.local.yaml` (via `poly-local-inputs`)
+- Generates `devenv.local.yaml` (via `poly-bootstrap`)
 
 ## Use
 
