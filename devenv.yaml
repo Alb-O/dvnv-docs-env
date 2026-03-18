@@ -11,8 +11,3 @@ inputs:
     inputs:
       nixpkgs:
         follows: nixpkgs
-  poly-bootstrap:
-    url: github:Alb-O/poly-bootstrap
-    flake: false
-imports:
-  - poly-bootstrap
