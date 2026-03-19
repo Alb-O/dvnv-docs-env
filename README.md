@@ -1,6 +1,6 @@
 # Docs Base Devenv
 
-Reusable documentation environment for polyrepo setups using `devenv` v2.
+Reusable documentation environment for AgentRoots workspaces using `devenv` v2.
 
 ## Includes
 
@@ -8,23 +8,23 @@ Reusable documentation environment for polyrepo setups using `devenv` v2.
 - Git hooks: pre-commit `treefmt` and `typos` hooks enabled
 - Scripts: `fmt`, `fmt-check`, `spellcheck`, `spellcheck-fix`, `ci`
 - Merged typos config via `outputs.typos_config`
-- Generates `devenv.local.yaml` (via `poly-bootstrap`)
+- Generates `devenv.local.yaml` (via `agentroots`)
 
 ## Use
 
 ```yaml
 inputs:
-  poly-docs-env:
-    url: github:Alb-O/poly-docs-env
+  ar_docs_env:
+    url: github:Alb-O/ar_docs_env
     flake: false
 imports:
-  - poly-docs-env
+  - ar_docs_env
 ```
 
 ## Consumer treefmt overrides
 
 Consumers can extend the shared docs formatting by adding extra programs under `treefmt.config`.
-This composes with `poly-docs-env` defaults (for example, `mdformat`, `nixfmt`, and `yamlfmt` stay enabled):
+This composes with `ar_docs_env` defaults (for example, `mdformat`, `nixfmt`, and `yamlfmt` stay enabled):
 
 ```nix
 {
@@ -34,7 +34,7 @@ This composes with `poly-docs-env` defaults (for example, `mdformat`, `nixfmt`, 
 
 ## Typos Config
 
-Repos can keep a normal `typos.toml` at the repo root. `poly-docs-env` merges
+Repos can keep a normal `typos.toml` at the repo root. `ar_docs_env` merges
 that file over `docsEnv.typos.managedConfig` and uses the generated effective
 config for both:
 
