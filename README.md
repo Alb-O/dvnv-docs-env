@@ -4,9 +4,9 @@ Reusable documentation environment for AgentRoots workspaces using `devenv` v2.
 
 ## Includes
 
-- Treefmt: enabled with `mdformat`, `nixfmt`, and `yamlfmt`
-- Git hooks: pre-commit `treefmt` and `typos` hooks enabled
-- Scripts: `fmt`, `fmt-check`, `spellcheck`, `spellcheck-fix`, `ci`
+- Treefmt: `mdformat`
+- Git hooks: pre-commit `typos` hook enabled
+- Scripts: `spellcheck`, `spellcheck-fix`, `ci`
 - Merged typos config via `outputs.typos_config`
 - Generates `devenv.local.yaml` (via `agentroots`)
 
@@ -14,17 +14,21 @@ Reusable documentation environment for AgentRoots workspaces using `devenv` v2.
 
 ```yaml
 inputs:
+  ar_devenv_base:
+    url: github:Alb-O/ar_devenv_base
+    flake: false
   ar_docs_env:
     url: github:Alb-O/ar_docs_env
     flake: false
 imports:
+  - ar_devenv_base
   - ar_docs_env
 ```
 
 ## Consumer treefmt overrides
 
 Consumers can extend the shared docs formatting by adding extra programs under `treefmt.config`.
-This composes with `ar_docs_env` defaults (for example, `mdformat`, `nixfmt`, and `yamlfmt` stay enabled):
+This composes with the shared `ar_devenv_base` baseline and keeps `ar_docs_env` focused on Markdown formatting:
 
 ```nix
 {

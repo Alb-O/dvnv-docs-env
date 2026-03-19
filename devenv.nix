@@ -8,7 +8,6 @@
 
 let
   cfg = config.docsEnv;
-  treefmtBin = lib.getExe config.treefmt.config.build.wrapper;
   typosBin = lib.getExe pkgs.typos;
   typosToml = pkgs.formats.toml { };
   resolveFromRoot =
@@ -58,9 +57,6 @@ in
   config = lib.mkMerge [
     {
       treefmt = {
-        enable = lib.mkDefault true;
-        config.programs.nixfmt.enable = lib.mkDefault true;
-        config.programs.yamlfmt.enable = lib.mkDefault true;
         config.settings.formatter.mdformat = {
           command = lib.getExe mdformatPackage;
           options = [ "--number" ];
@@ -68,9 +64,8 @@ in
         };
       };
 
-      git-hooks = lib.mkIf config.treefmt.enable {
+      git-hooks = {
         hooks = {
-          treefmt.enable = lib.mkDefault true;
           typos = {
             enable = lib.mkDefault true;
             entry = lib.mkForce "${typosBin} --config ${typosConfigPath} --force-exclude";
@@ -84,8 +79,6 @@ in
       ];
 
       scripts = {
-        fmt.exec = lib.mkDefault treefmtBin;
-        fmt-check.exec = lib.mkDefault "${treefmtBin} --fail-on-change";
         spellcheck.exec = lib.mkDefault "${typosBin} --config ${typosConfigPath}";
         spellcheck-fix.exec = lib.mkDefault "${typosBin} --config ${typosConfigPath} -w";
         ci.exec = lib.mkDefault ''
@@ -99,7 +92,6 @@ in
 
       enterTest = ''
         set -euo pipefail
-        treefmt --version
         typos --version
         fmt-check
         spellcheck
